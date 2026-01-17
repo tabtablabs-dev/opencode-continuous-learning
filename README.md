@@ -1,36 +1,23 @@
 # Claude Code Continuous Learning Skill
 
-> **"Continuous learning for Claude Code - have Claude Code autonomously get smarter as it works autonomously"**
+A Claude Code skill that extracts learned knowledge into reusable skills. When Claude Code discovers something non-obvious—a debugging technique, a workaround, a project-specific pattern—it automatically saves that knowledge where it can be retrieved for similar future tasks.
 
-A Claude Code skill that enables autonomous extraction and preservation of learned knowledge into reusable skills. As Claude Code works on tasks, it identifies valuable discoveries—debugging techniques, non-obvious solutions, project-specific patterns—and codifies them into new skills that improve future performance.
+The problem: every time you use an AI coding agent, it starts from zero. You spend an hour debugging some obscure error, the agent figures it out, and then the session ends. Next time you hit the same issue? Another hour.
 
-## Overview
-
-This skill implements a continuous learning loop inspired by academic research on self-evolving AI agents. Rather than losing valuable discoveries at the end of each session, Claude Code can now:
-
-1. **Recognize** when it has learned something worth preserving
-2. **Extract** that knowledge into a structured, reusable skill
-3. **Store** the skill where it can be surfaced for relevant future tasks
-4. **Improve** over time as the skill library grows
+This skill fixes that. Knowledge compounds instead of disappearing.
 
 ## Installation
 
-### User-level Installation (Recommended)
+### User-level (recommended)
 
 ```bash
-# Create the user skills directory if it doesn't exist
-mkdir -p ~/.claude/skills
-
-# Copy the skill
-cp -r . ~/.claude/skills/continuous-learning
+git clone https://github.com/blader/claude-code-continuous-learning-skill.git ~/.claude/skills/continuous-learning
 ```
 
-### Project-level Installation
+### Project-level
 
 ```bash
-# In your project root
-mkdir -p .claude/skills
-cp -r . .claude/skills/continuous-learning
+git clone https://github.com/blader/claude-code-continuous-learning-skill.git .claude/skills/continuous-learning
 ```
 
 ## Usage
@@ -67,146 +54,83 @@ The skill is selective—not every task produces a skill. It extracts knowledge 
 
 ## Research Foundation
 
-This skill is informed by academic research on continuous learning for AI agents:
+This approach is grounded in academic research on skill libraries for AI agents.
 
-### Voyager: Skill Library Architecture (Wang et al., 2023)
+**[Voyager](https://arxiv.org/abs/2305.16291)** (Wang et al., 2023) is the foundational work. It demonstrated that game-playing agents can build "ever-growing skill libraries of executable code for storing and retrieving complex behaviors." Key insight: skills should be compositional (building on each other), interpretable (readable and understandable), and temporally extended (capturing multi-step procedures). Most importantly, skill libraries "alleviate catastrophic forgetting" by persisting knowledge across sessions.
 
-The foundational work on skill libraries for LLM agents. Voyager demonstrated that agents can build an "ever-growing skill library of executable code for storing and retrieving complex behaviors." Key insights applied:
+**[CASCADE](https://arxiv.org/abs/2512.23880)** (2024) introduced the concept of meta-skills—skills for acquiring skills. Agents can develop "continuous learning via web search and code extraction, and self-reflection via introspection." This skill implements that pattern: it's a meta-skill that creates other skills.
 
-- Skills should be **compositional**—building on each other
-- Skills should be **interpretable**—readable and understandable  
-- Skills should be **temporally extended**—capturing multi-step procedures
-- Skills **alleviate catastrophic forgetting** by persisting knowledge
+**[SEAgent](https://arxiv.org/abs/2508.04700)** (2025) proved agents can "autonomously master novel software environments via experiential learning, where agents explore new software, learn through iterative trial-and-error." The `/retrospective` mode in this skill mirrors SEAgent's approach of learning from both failures and successes.
 
-> Paper: [Voyager: An Open-Ended Embodied Agent with Large Language Models](https://arxiv.org/abs/2305.16291)
+**[Reflexion](https://arxiv.org/abs/2303.11366)** (Shinn et al., 2023) established that self-reflection improves agent performance. This skill uses similar prompts: "What did I just learn that wasn't obvious before starting?" and "If I faced this exact problem again, what would I wish I knew?"
 
-### CASCADE: Self-Evolving Skill Acquisition (2024)
+The pattern is consistent: agents with persistent skill libraries dramatically outperform agents that start fresh every session.
 
-CASCADE demonstrated that agents can develop "continuous learning via web search and code extraction, and self-reflection via introspection." This skill applies CASCADE's meta-skill concept—skills for acquiring skills.
+## How It Works
 
-> Paper: [CASCADE: Cumulative Agentic Skill Creation through Autonomous Development and Evolution](https://arxiv.org/abs/2512.23880)
+Claude Code has a native skills system that this skill exploits:
 
-### SEAgent: Experiential Learning (2025)
+1. **Semantic retrieval**: Claude loads only skill names and descriptions at startup (~100 tokens each). When working on a task, it semantically matches your context against those descriptions and loads relevant skills on demand.
 
-SEAgent showed that agents can "autonomously master novel software environments via experiential learning, where agents explore new software, learn through iterative trial-and-error." The retrospective mode in this skill mirrors SEAgent's approach of learning from both failures and successes.
+2. **Write, not just read**: The skill system is a retrieval mechanism—and retrieval mechanisms can be written to, not just read from. This skill writes new skills when it discovers extractable knowledge.
 
-> Paper: [SEAgent: Self-Evolving Computer Use Agent with Autonomous Learning from Experience](https://arxiv.org/abs/2508.04700)
+3. **Description is everything**: Skills surface via semantic matching, so the description field determines discoverability. Vague descriptions like "helps with database problems" won't surface when needed. Good descriptions include exact error messages, specific frameworks, and clear trigger conditions.
 
-### Reflexion: Self-Reflection for Improvement (Shinn et al., 2023)
+For more on the skills architecture, see the [Anthropic Engineering Blog](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills).
 
-Reflexion demonstrated that "linguistic feedback" and self-reflection can improve agent performance. This skill uses similar self-reflection prompts to identify extractable knowledge:
+## Skill Format
 
-- "What did I just learn that wasn't obvious before starting?"
-- "If I faced this exact problem again, what would I wish I knew?"
-
-> Paper: [Reflexion: Language Agents with Verbal Reinforcement Learning](https://arxiv.org/abs/2303.11366)
-
-### EvoFSM: Self-Evolving Memory (2024)
-
-EvoFSM's "Self-Evolving Memory mechanism distills successful strategies and failure patterns into an Experience Pool to enable continuous learning." This skill implements a similar pattern—extracting and storing successful strategies for warm-starting future work.
-
-## Claude Code Skills Architecture
-
-This skill leverages Claude Code's native skills system:
-
-- **Progressive Disclosure**: Claude only loads skill names and descriptions at startup (~100 tokens per skill). Full content loads only when relevant (~5k tokens).
-- **Semantic Matching**: Claude matches tasks to skills based on description similarity, so good descriptions are critical.
-- **Meta-tool Architecture**: Skills inject instructions into Claude's context without modifying the core system prompt.
-
-For more on Claude Code skills architecture, see:
-- [Anthropic Engineering Blog: Equipping agents for the real world with Agent Skills](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)
-- [Claude Code Skills Documentation](https://code.claude.com/docs/en/skills)
-
-## Skill Structure
-
-Extracted skills follow this structure:
-
-```
-skill-name/
-├── SKILL.md          # Main skill file with YAML frontmatter + instructions
-├── scripts/          # Optional executable helpers
-│   └── helper.py
-└── resources/        # Optional supporting files
-    └── template.json
-```
-
-### SKILL.md Format
+Extracted skills are markdown files with YAML frontmatter:
 
 ```yaml
 ---
-name: skill-name
+name: prisma-connection-pool-exhaustion
 description: |
-  Precise description with: (1) exact use cases, (2) trigger conditions 
-  like specific error messages, (3) what problem this solves.
+  Fix for PrismaClientKnownRequestError: Too many database connections 
+  in serverless environments (Vercel, AWS Lambda). Use when connection 
+  count errors appear after ~5 concurrent requests.
 author: Claude Code
 version: 1.0.0
-date: YYYY-MM-DD
 ---
 
-# Skill Name
+# Prisma Connection Pool Exhaustion
 
 ## Problem
 [What this skill solves]
 
-## Context / Trigger Conditions
-[When to use this skill - include exact error messages, symptoms]
+## Trigger Conditions
+[Exact error messages, symptoms, scenarios]
 
 ## Solution
-[Step-by-step instructions]
+[Step-by-step fix]
 
 ## Verification
-[How to confirm the solution worked]
-
-## Notes
-[Edge cases, caveats, related considerations]
+[How to confirm it worked]
 ```
 
-## Design Principles
+See `resources/skill-template.md` for the full template.
 
-### 1. Quality Over Quantity
+## Quality Gates
 
-Not every task should produce a skill. The skill applies quality gates:
-- Is this reusable beyond this one instance?
-- Is this non-trivial knowledge?
-- Has this been verified to work?
+Not every task produces a skill. The system only extracts knowledge that is:
 
-### 2. Specific Descriptions
-
-Vague descriptions like "helps with React problems" won't surface when needed. Effective descriptions include:
-- Exact error messages
-- Specific framework/tool names
-- Clear trigger conditions
-
-### 3. Verified Knowledge Only
-
-Only extract solutions that have actually worked. Theoretical solutions that haven't been tested can mislead future users.
-
-### 4. Avoid Duplication
-
-Don't recreate official documentation. Link to docs and add only what's missing—the non-obvious parts.
+- **Reusable** — will help with future tasks, not just this one instance
+- **Non-trivial** — required discovery, not just documentation lookup
+- **Specific** — has clear trigger conditions (exact error messages, symptoms)
+- **Verified** — the solution actually worked, not just theoretically
 
 ## Examples
 
-See the `examples/` directory for sample extracted skills:
+See `examples/` for sample extracted skills:
 
-- `nextjs-server-side-error-debugging/` - Finding errors that don't show in browser console
-- `prisma-connection-pool-exhaustion/` - Solving "too many connections" in serverless
-- `typescript-circular-dependency/` - Detecting and resolving import cycles
+- `nextjs-server-side-error-debugging/` — finding errors that don't show in browser console
+- `prisma-connection-pool-exhaustion/` — solving "too many connections" in serverless
+- `typescript-circular-dependency/` — detecting and resolving import cycles
 
 ## Contributing
 
-Contributions welcome! If you've used this skill and have improvements to suggest:
-
-1. Fork the repository
-2. Make your changes
-3. Submit a pull request with a clear description of the improvement
+Contributions welcome. Fork, make changes, submit a PR.
 
 ## License
 
-MIT License - See LICENSE file for details.
-
-## Acknowledgments
-
-- The Voyager team for pioneering skill library architectures for LLM agents
-- Anthropic for creating the Claude Code skills system
-- The research community for advancing continuous learning in AI agents
+MIT
