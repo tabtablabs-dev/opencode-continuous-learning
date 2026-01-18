@@ -1,5 +1,5 @@
 ---
-name: continuous-learning
+name: opencode-continuous-learning
 description: |
   Continuous learning system that monitors all user requests and interactions to identify
   learning opportunities. Active during: (1) Every user request and task, (2) All coding
