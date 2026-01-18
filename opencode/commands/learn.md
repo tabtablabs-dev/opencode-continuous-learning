@@ -1,5 +1,5 @@
 ---
-description: Run a learning retrospective and extract reusable OpenCode skills when warranted
+description: Run a learning review and extract reusable OpenCode skills when warranted
 ---
 
 We just completed work that may include discoveries.

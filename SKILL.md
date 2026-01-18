@@ -4,7 +4,7 @@ description: |
   Continuous learning system that monitors all user requests and interactions to identify
   learning opportunities. Active during: (1) Every user request and task, (2) All coding
   sessions and problem-solving activities, (3) When discovering solutions, patterns, or
-  techniques, (4) During /retrospective sessions. Automatically evaluates whether current
+  techniques, (4) During /learn sessions. Automatically evaluates whether current
   work contains valuable, reusable knowledge and creates new OpenCode skills when appropriate.
 license: MIT
 compatibility: opencode
@@ -177,9 +177,9 @@ Save new skills to the appropriate location:
 Include any supporting scripts in a `scripts/` subdirectory if the skill benefits from 
 executable helpers.
 
-## Retrospective Mode
+## Learn Mode
 
-When `/retrospective` is invoked at the end of a session:
+When `/learn` is invoked at the end of a session:
 
 1. **Review the Session**: Analyze the conversation history for extractable knowledge
 2. **Identify Candidates**: List potential skills with brief justifications
@@ -329,7 +329,7 @@ Invoke this skill immediately after completing a task when ANY of these apply:
 ### Explicit Invocation
 
 Also invoke when:
-- User says `/retrospective` to review the session
+- User says `/learn` to review the session
 - User says "save this as a skill" or similar
 - User asks "what did we learn?"
 

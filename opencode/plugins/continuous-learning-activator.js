@@ -2,7 +2,7 @@
 // - Project: .opencode/plugins/continuous-learning-activator.js
 // - Global:  ~/.config/opencode/plugins/continuous-learning-activator.js
 //
-// This plugin reminds you to run /retrospective when a session becomes idle.
+// This plugin reminds you to run /learn when a session becomes idle.
 
 export const ContinuousLearningActivator = async ({ client }) => {
   // Choose behavior:
@@ -11,7 +11,7 @@ export const ContinuousLearningActivator = async ({ client }) => {
   const MODE = "toast";
 
   const APPEND_TEXT =
-    "\n\n[Learning checkpoint] If we discovered a non-obvious fix/workaround/pattern, run /retrospective to save it as a skill.";
+    "\n\n[Learning checkpoint] If we discovered a non-obvious fix/workaround/pattern, run /learn to save it as a skill.";
 
   let lastFiredAt = 0;
   const COOLDOWN_MS = 1500;
@@ -34,7 +34,7 @@ export const ContinuousLearningActivator = async ({ client }) => {
       // Default: show a toast reminder (doesn't clutter the prompt)
       await client.tui.showToast({
         body: {
-          message: "Continuous learning: if we learned something non-obvious, run /retrospective to save it as a skill.",
+          message: "Continuous learning: if we learned something non-obvious, run /learn to save it as a skill.",
           variant: "info",
         },
       });

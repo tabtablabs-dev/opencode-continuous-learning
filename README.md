@@ -42,25 +42,25 @@ cp .opencode/skills/continuous-learning/opencode/plugins/continuous-learning-act
 
 Plugins are auto-loaded from these directories.
 
-### Step 3: Install the /retrospective command
+### Step 3: Install the /learn command
 
 **User-level**
 
 ```bash
 mkdir -p ~/.config/opencode/commands
-cp ~/.config/opencode/skills/continuous-learning/opencode/commands/retrospective.md \
-  ~/.config/opencode/commands/retrospective.md
+cp ~/.config/opencode/skills/continuous-learning/opencode/commands/learn.md \
+  ~/.config/opencode/commands/learn.md
 ```
 
 **Project-level**
 
 ```bash
 mkdir -p .opencode/commands
-cp .opencode/skills/continuous-learning/opencode/commands/retrospective.md \
-  .opencode/commands/retrospective.md
+cp .opencode/skills/continuous-learning/opencode/commands/learn.md \
+  .opencode/commands/learn.md
 ```
 
-Custom commands are discovered from these directories, and you run them by typing `/retrospective`.
+Custom commands are discovered from these directories, and you run them by typing `/learn`.
 
 ## Usage
 
@@ -75,10 +75,10 @@ The skill activates automatically when OpenCode:
 
 ### Explicit Mode
 
-Trigger a learning retrospective:
+Trigger a learning review:
 
 ```
-/retrospective
+/learn
 ```
 
 Or explicitly request skill extraction:
@@ -95,7 +95,7 @@ Not every task produces a skill. It only extracts knowledge that required actual
 
 The idea comes from academic work on skill libraries for AI agents.
 
-[Voyager](https://arxiv.org/abs/2305.16291) (Wang et al., 2023) showed that game-playing agents can build up libraries of reusable skills over time, and that this helps them avoid re-learning things they already figured out. [CASCADE](https://arxiv.org/abs/2512.23880) (2024) introduced "meta-skills" (skills for acquiring skills), which is what this is. [SEAgent](https://arxiv.org/abs/2508.04700) (2025) showed agents can learn new software environments through trial and error, which is where the `/retrospective` idea comes from. [Reflexion](https://arxiv.org/abs/2303.11366) (Shinn et al., 2023) showed that self-reflection helps.
+[Voyager](https://arxiv.org/abs/2305.16291) (Wang et al., 2023) showed that game-playing agents can build up libraries of reusable skills over time, and that this helps them avoid re-learning things they already figured out. [CASCADE](https://arxiv.org/abs/2512.23880) (2024) introduced "meta-skills" (skills for acquiring skills), which is what this is. [SEAgent](https://arxiv.org/abs/2508.04700) (2025) showed agents can learn new software environments through trial and error, which is where the `/learn` idea comes from. [Reflexion](https://arxiv.org/abs/2303.11366) (Shinn et al., 2023) showed that self-reflection helps.
 
 Agents that persist what they learn do better than agents that start fresh.
 

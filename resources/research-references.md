@@ -20,7 +20,7 @@ This document compiles the academic research that informed the design of the Con
 
 3. **Self-Verification**: Voyager uses "self-verification for program improvement" before adding skills to the library. We implement similar quality gates before extraction.
 
-4. **Iterative Prompting**: The "iterative prompting mechanism that incorporates environment feedback, execution errors" influenced our retrospective mode design.
+4. **Iterative Prompting**: The "iterative prompting mechanism that incorporates environment feedback, execution errors" influenced our learn mode design.
 
 ---
 
@@ -52,7 +52,7 @@ This document compiles the academic research that informed the design of the Con
 
 **Relevant Concepts Applied**:
 
-1. **Experiential Learning**: "SEAgent empowers computer-use agents to autonomously master novel software environments via experiential learning, where agents explore new software, learn through iterative trial-and-error." Our retrospective mode captures this trial-and-error learning.
+1. **Experiential Learning**: "SEAgent empowers computer-use agents to autonomously master novel software environments via experiential learning, where agents explore new software, learn through iterative trial-and-error." Our learn mode captures this trial-and-error learning.
 
 2. **Learning from Failures and Successes**: "The agent's policy is optimized through experiential learning from both failures and successes." We extract skills from both successful solutions and debugging processes.
 
