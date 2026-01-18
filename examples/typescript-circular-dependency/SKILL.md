@@ -6,9 +6,11 @@ description: |
   undefined unexpectedly, (3) "ReferenceError: Cannot access X before initialization",
   (4) Type errors that disappear when you change import order, (5) Jest/Vitest tests 
   fail with undefined imports that work in browser.
-author: Claude Code
-version: 1.0.0
-date: 2024-03-10
+license: MIT
+compatibility: opencode
+metadata:
+  author: OpenCode
+  version: 1.0.0
 ---
 
 # TypeScript Circular Dependency Detection and Resolution

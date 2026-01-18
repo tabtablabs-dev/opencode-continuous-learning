@@ -1,8 +1,8 @@
-# Claude Code Continuous Learning Skill
+# OpenCode Continuous Learning Skill
 
 Every time you use an AI coding agent, it starts from zero. You spend an hour debugging some obscure error, the agent figures it out, session ends. Next time you hit the same issue? Another hour.
 
-This skill fixes that. When Claude Code discovers something non-obvious (a debugging technique, a workaround, some project-specific pattern), it saves that knowledge as a new skill. Next time a similar problem comes up, the skill gets loaded automatically.
+This skill fixes that. When OpenCode discovers something non-obvious (a debugging technique, a workaround, some project-specific pattern), it saves that knowledge as a new skill. Next time a similar problem comes up, the skill gets loaded automatically.
 
 ## Installation
 
@@ -11,55 +11,62 @@ This skill fixes that. When Claude Code discovers something non-obvious (a debug
 **User-level (recommended)**
 
 ```bash
-git clone https://github.com/blader/claude-code-continuous-learning-skill.git ~/.claude/skills/continuous-learning
+git clone https://github.com/blader/opencode-continuous-learning.git ~/.config/opencode/skills/continuous-learning
 ```
 
 **Project-level**
 
 ```bash
-git clone https://github.com/blader/claude-code-continuous-learning-skill.git .claude/skills/continuous-learning
+git clone https://github.com/blader/opencode-continuous-learning.git .opencode/skills/continuous-learning
 ```
 
-### Step 2: Set up the activation hook (recommended)
+### Step 2: Install the activator plugin
 
-The skill can activate via semantic matching, but a hook ensures it evaluates every session for extractable knowledge.
+The skill can activate via semantic matching, but a plugin ensures it evaluates every session for extractable knowledge.
 
-1. Create the hooks directory and copy the script:
+**User-level**
 
 ```bash
-mkdir -p ~/.claude/hooks
-cp ~/.claude/skills/continuous-learning/scripts/continuous-learning-activator.sh ~/.claude/hooks/
-chmod +x ~/.claude/hooks/continuous-learning-activator.sh
+mkdir -p ~/.config/opencode/plugins
+cp ~/.config/opencode/skills/continuous-learning/opencode/plugins/continuous-learning-activator.js \
+  ~/.config/opencode/plugins/continuous-learning-activator.js
 ```
 
-2. Add the hook to your Claude settings (`~/.claude/settings.json`):
+**Project-level**
 
-```json
-{
-  "hooks": {
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/continuous-learning-activator.sh"
-          }
-        ]
-      }
-    ]
-  }
-}
+```bash
+mkdir -p .opencode/plugins
+cp .opencode/skills/continuous-learning/opencode/plugins/continuous-learning-activator.js \
+  .opencode/plugins/continuous-learning-activator.js
 ```
 
-If you already have a `settings.json`, merge the `hooks` configuration into it.
+Plugins are auto-loaded from these directories.
 
-The hook injects a reminder on every prompt that tells Claude to evaluate whether the current task produced extractable knowledge. This achieves higher activation rates than relying on semantic description matching alone.
+### Step 3: Install the /retrospective command
+
+**User-level**
+
+```bash
+mkdir -p ~/.config/opencode/commands
+cp ~/.config/opencode/skills/continuous-learning/opencode/commands/retrospective.md \
+  ~/.config/opencode/commands/retrospective.md
+```
+
+**Project-level**
+
+```bash
+mkdir -p .opencode/commands
+cp .opencode/skills/continuous-learning/opencode/commands/retrospective.md \
+  .opencode/commands/retrospective.md
+```
+
+Custom commands are discovered from these directories, and you run them by typing `/retrospective`.
 
 ## Usage
 
 ### Automatic Mode
 
-The skill activates automatically when Claude Code:
+The skill activates automatically when OpenCode:
 - Just completed debugging and discovered a non-obvious solution
 - Found a workaround through investigation or trial-and-error
 - Resolved an error where the root cause wasn't immediately apparent
@@ -94,13 +101,11 @@ Agents that persist what they learn do better than agents that start fresh.
 
 ## How It Works
 
-Claude Code has a native skills system. At startup, it loads skill names and descriptions (about 100 tokens each). When you're working, it matches your current context against those descriptions and pulls in relevant skills.
+OpenCode has a native skills system. At startup, it loads skill names and descriptions (about 100 tokens each). When you're working, it matches your current context against those descriptions and pulls in relevant skills.
 
 But this retrieval system can be written to, not just read from. So when this skill notices extractable knowledge, it writes a new skill with a description optimized for future retrieval.
 
 The description matters a lot. "Helps with database problems" won't match anything useful. "Fix for PrismaClientKnownRequestError in serverless" will match when someone hits that error.
-
-More on the skills architecture [here](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills).
 
 ## Skill Format
 
@@ -113,8 +118,11 @@ description: |
   Fix for PrismaClientKnownRequestError: Too many database connections 
   in serverless environments (Vercel, AWS Lambda). Use when connection 
   count errors appear after ~5 concurrent requests.
-author: Claude Code
-version: 1.0.0
+license: MIT
+compatibility: opencode
+metadata:
+  author: OpenCode
+  version: 1.0.0
 ---
 
 # Prisma Connection Pool Exhaustion
@@ -132,7 +140,7 @@ version: 1.0.0
 [How to confirm it worked]
 ```
 
-See `resources/skill-template.md` for the full template.
+See `opencode/templates/skill-template.opencode.md` for the full template.
 
 ## Quality Gates
 

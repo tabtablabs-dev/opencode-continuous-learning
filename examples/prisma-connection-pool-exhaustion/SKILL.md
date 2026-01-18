@@ -6,9 +6,11 @@ description: |
   "P2024: Timed out fetching a new connection from the pool", (2) PostgreSQL 
   "too many connections for role", (3) Database works locally but fails in 
   production serverless, (4) Intermittent database timeouts under load.
-author: Claude Code
-version: 1.0.0
-date: 2024-02-20
+license: MIT
+compatibility: opencode
+metadata:
+  author: OpenCode
+  version: 1.0.0
 ---
 
 # Prisma Connection Pool Exhaustion in Serverless

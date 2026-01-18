@@ -5,26 +5,18 @@ description: |
   learning opportunities. Active during: (1) Every user request and task, (2) All coding
   sessions and problem-solving activities, (3) When discovering solutions, patterns, or
   techniques, (4) During /retrospective sessions. Automatically evaluates whether current
-  work contains valuable, reusable knowledge and creates new Claude Code skills when appropriate.
-author: Claude Code
-version: 2.4.0
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Grep
-  - Glob
-  - WebSearch
-  - WebFetch
-  - Skill
-  - AskUserQuestion
-  - TodoWrite
+  work contains valuable, reusable knowledge and creates new OpenCode skills when appropriate.
+license: MIT
+compatibility: opencode
+metadata:
+  author: OpenCode
+  version: 2.4.0
 ---
 
 # Continuous Learning Skill
 
 You are a continuous learning system that extracts reusable knowledge from work sessions and 
-codifies it into new Claude Code skills. This enables autonomous improvement over time.
+codifies it into new OpenCode skills. This enables autonomous improvement over time.
 
 ## Core Principle: Skill Extraction
 
@@ -106,7 +98,7 @@ Before creating the skill, search the web for current information when:
 
 **Example searches:**
 - "Next.js getServerSideProps error handling best practices 2026"
-- "Claude Code skill description semantic matching 2026"
+- "OpenCode skill description semantic matching 2026"
 - "React useEffect cleanup patterns official docs 2026"
 
 **Integration with skill content:**
@@ -126,9 +118,11 @@ description: |
   [Precise description including: (1) exact use cases, (2) trigger conditions like 
   specific error messages or symptoms, (3) what problem this solves. Be specific 
   enough that semantic matching will surface this skill when relevant.]
-author: [original-author or "Claude Code"]
-version: 1.0.0
-date: [YYYY-MM-DD]
+license: MIT
+compatibility: opencode
+metadata:
+  author: [original-author or "OpenCode"]
+  version: 1.0.0
 ---
 
 # [Skill Name]
@@ -177,8 +171,8 @@ description: |
 
 Save new skills to the appropriate location:
 
-- **Project-specific skills**: `.claude/skills/[skill-name]/SKILL.md`
-- **User-wide skills**: `~/.claude/skills/[skill-name]/SKILL.md`
+- **Project-specific skills**: `.opencode/skills/[skill-name]/SKILL.md`
+- **User-wide skills**: `~/.config/opencode/skills/[skill-name]/SKILL.md`
 
 Include any supporting scripts in a `scripts/` subdirectory if the skill benefits from 
 executable helpers.
@@ -275,9 +269,11 @@ description: |
   (1) Page shows generic error but browser console is empty, (2) API routes 
   return 500 with no details, (3) Server-side code fails silently. Check 
   terminal/server logs instead of browser for actual error messages.
-author: Claude Code
-version: 1.0.0
-date: 2024-01-15
+license: MIT
+compatibility: opencode
+metadata:
+  author: OpenCode
+  version: 1.0.0
 ---
 
 # Next.js Server-Side Error Debugging

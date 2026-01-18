@@ -6,9 +6,11 @@ description: |
   (2) Specific trigger conditions - exact error messages, symptoms, scenarios
   (3) Key technologies/frameworks involved
   Use phrases like "Use when:", "Helps with:", "Solves:"]
-author: Claude Code
-version: 1.0.0
-date: YYYY-MM-DD
+license: MIT
+compatibility: opencode
+metadata:
+  author: OpenCode
+  version: 1.0.0
 ---
 
 # [Skill Name - Human Readable Title]
@@ -77,6 +79,10 @@ What pain point does this solve? Why is it non-obvious?]
 - [Related skill or documentation link]
 - [Known limitation]
 - [When NOT to use this skill]
+
+## References
+
+[Optional: Links to official documentation, articles, or resources that informed this skill]
 
 ---
 
