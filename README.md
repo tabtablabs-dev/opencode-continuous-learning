@@ -20,29 +20,7 @@ git clone https://github.com/tabtablabs-dev/opencode-continuous-learning.git ~/.
 git clone https://github.com/tabtablabs-dev/opencode-continuous-learning.git .opencode/skills/continuous-learning
 ```
 
-### Step 2: Install the activator plugin
-
-The skill can activate via semantic matching, but a plugin ensures it evaluates every session for extractable knowledge.
-
-**User-level**
-
-```bash
-mkdir -p ~/.config/opencode/plugins
-cp ~/.config/opencode/skills/continuous-learning/opencode/plugins/continuous-learning-activator.js \
-  ~/.config/opencode/plugins/continuous-learning-activator.js
-```
-
-**Project-level**
-
-```bash
-mkdir -p .opencode/plugins
-cp .opencode/skills/continuous-learning/opencode/plugins/continuous-learning-activator.js \
-  .opencode/plugins/continuous-learning-activator.js
-```
-
-Plugins are auto-loaded from these directories.
-
-### Step 3: Install the /learn command
+### Step 2: Install the /learn command
 
 **User-level**
 
