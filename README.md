@@ -11,13 +11,13 @@ This skill fixes that. When OpenCode discovers something non-obvious (a debuggin
 **User-level (recommended)**
 
 ```bash
-git clone https://github.com/blader/opencode-continuous-learning.git ~/.config/opencode/skills/continuous-learning
+git clone https://github.com/tabtablabs-dev/opencode-continuous-learning.git ~/.config/opencode/skills/continuous-learning
 ```
 
 **Project-level**
 
 ```bash
-git clone https://github.com/blader/opencode-continuous-learning.git .opencode/skills/continuous-learning
+git clone https://github.com/tabtablabs-dev/opencode-continuous-learning.git .opencode/skills/continuous-learning
 ```
 
 ### Step 2: Install the activator plugin
